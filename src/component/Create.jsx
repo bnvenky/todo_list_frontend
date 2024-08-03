@@ -8,7 +8,10 @@ function Create({ onTaskAdd }) {
   const [task, setTask] = useState('');
 
   const handleAdd = () => {
-    axios.post('http://localhost:3001/add', { task })
+    const token = localStorage.getItem('token');
+    axios.post('http://localhost:3001/add', { task }, {
+      headers: { Authorization: token }
+    })
       .then(res => {
         // Notify the parent component about the new task
         if (onTaskAdd) {
@@ -47,4 +50,3 @@ function Create({ onTaskAdd }) {
 }
 
 export default Create;
-
